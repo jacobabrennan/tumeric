@@ -1,0 +1,24 @@
+{
+  "name": "house_party",
+  "version": "0.0.0",
+  "description": "proof of concept",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobabrennan/house_party.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobabrennan/house_party/issues"
+  },
+  "homepage": "https://github.com/jacobabrennan/house_party#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0"
+  }
+}
