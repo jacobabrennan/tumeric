@@ -7,11 +7,6 @@ const EVENT_MESSAGE = 'message';
 const EVENT_DISCONNECT = 'close';
 const ACTION_KEY_DOWN = 'keyDown';
 const ACTION_KEY_UP = 'keyUp';
-//-- These should be elsewhere -------------------
-const NORTH = 1;
-const SOUTH = 2;
-const EAST = 4;
-const WEST = 8;
 
 //------------------------------------------------
 const clientsActive = {};
