@@ -1,0 +1,49 @@
+
+
+/*== Views ===================================================================*/
+
+/*-- Shared View Styles ------------------------*/
+.view {
+    display: none;
+}
+.view.active {
+    display: flex;
+}
+
+/*-- Loading -----------------------------------*/
+#view-loading {
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/*-- Login -------------------------------------*/
+#view-login {
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+#view-login fieldset {
+    border: var(--border-structure);
+    border-radius: var(--size-radius-structure);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+#view-login label {
+    display: flex;
+    flex-direction: column;
+}
+#view-login button {
+    margin-top: var(--size-spacing-structure);
+}
+
+/*-- Gameplay ----------------------------------*/
+#view-gameplay {
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}

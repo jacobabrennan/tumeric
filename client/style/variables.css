@@ -1,0 +1,8 @@
+:root {
+    --size-spacing-structure: 1rem;
+    --size-font-body: 16px;
+    --size-radius-structure: 0.5rem;
+    --color-structure: #888;
+    --border-structure: 1px solid var(--color-structure);
+    --font-body: serif;
+}

@@ -1,0 +1,4 @@
+body, input, button {
+    font-family: var(--font-body);
+    font-size: var(--size-font-body);
+}

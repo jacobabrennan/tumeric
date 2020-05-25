@@ -13,5 +13,5 @@ client.configure(clientConfiguration).then(handleClientLoaded);
 
 //------------------------------------------------
 function handleClientLoaded() {
-    alert('Loaded');
+    // alert('Loaded');
 }
