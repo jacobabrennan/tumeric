@@ -24,8 +24,7 @@ server.use(express.static(PATH_CLIENT));
 //-- Handle Websocket Traffic --------------------
 server.ws('/', function (ws, req) {
     console.log(' -- WebSocket: New Connection');
-    // close, error, message, ping, pong, unexpected-response, upgrade 
-    ws.on('pong', function (thing) {
-        console.log('asdf')
-    });
+    // ws.on('message', function (...) {
+    //     ...
+    // });
 });

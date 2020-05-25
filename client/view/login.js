@@ -5,7 +5,7 @@
 //-- Dependencies --------------------------------
 import client from '../client.js';
 import view, { ID_VIEW_LOGIN } from './index.js';
-import viewGameplay from './gameplay.js';
+import viewGameplay from './gameplay/index.js';
 
 //-- Constants -----------------------------------
 const ID_FORM_LOGIN = 'form-login';
@@ -31,5 +31,12 @@ export default Object.assign(Object.create(view), {
         const nameInput = form.elements[INPUT_NAME];
         nameInput.value = '';
         nameInput.focus();
-    }
+    },
+    blur() {
+        view.blur.apply(this, arguments);
+        const form = document.getElementById(ID_FORM_LOGIN);
+        const nameInput = form.elements[INPUT_NAME];
+        nameInput.value = '';
+        nameInput.blur();
+    },
 });

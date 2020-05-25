@@ -5,7 +5,7 @@
 //-- Dependencies --------------------------------
 import viewLoading from './view/loading.js';
 import viewLogin from './view/login.js';
-import viewGameplay from './view/gameplay.js';
+import viewGameplay from './view/gameplay/index.js';
 import resourceLibrary from './resource_library/index.js';
 import networking from './networking/index.js';
 
@@ -24,9 +24,6 @@ export default {
         await viewGameplay.configure(configuration);
         // Display Login Form
         this.viewSwitch(viewLogin);
-        //
-        const mediaStream = await navigator.mediaDevices.getUserMedia({audio: true});
-        // const trackAudio = mediaStream.getAudioTracks()[0];
     },
     viewSwitch(viewNew) {
         if(this.viewCurrent) {
