@@ -3,7 +3,7 @@
 //==============================================================================
 
 //------------------------------------------------
-const rooms = {};
+export const rooms = {};
 function roomGetById(roomId) {
     return rooms[roomId];
 }
@@ -18,13 +18,18 @@ function roomRemove(roomOld) {
 }
 
 //------------------------------------------------
-class Room {
+export class Room {
     constructor(options) {
         this.id = `Room_${Math.floor(Math.random()*10000)}`;
         roomAdd(this);
         this.width = 1024;
         this.height = 1024;
         this.particles = [];
+    }
+    iterate() {
+        for(const particle of this.particles) {
+            particle.takeTurn();
+        }
     }
 }
 
@@ -35,7 +40,7 @@ class Room {
 let idCount = 0;
 
 //------------------------------------------------
-class Particle {
+export class Particle {
     constructor() {
         this.id = idCount;
         idCount++;
@@ -51,29 +56,21 @@ class Particle {
         ) {
             return false;
         }
-        const oldRoomId = this.roomId;
-        const oldX = this.x;
-        const oldY = this.y;
-        this.roomId = roomid;
+        // please forgive these next lines
+        const roomOld = roomGetById(this.roomId);
+        if(roomOld) {
+            // roomOld.particles.IJustWantASimpleRemoveFunction
+        }
+        roomPlacement.particles.push(this);
+        this.roomId = roomId;
         this.x = posXNew;
         this.y = posYNew;
-        if(this.roomId !== oldRoomId) { this.update('roomId');}
-        if(this.x !== oldX) { this.update('x');}
-        if(this.y !== oldY) { this.update('y');}
         return true;
     }
     translate(deltaX, deltaY) {
         const room = roomGetById(this.roomId);
-        const oldX = this.x;
-        const oldY = this.y;
         this.x = Math.max(0, Math.min(room.width, this.x+deltaX));
         this.y = Math.max(0, Math.min(room.height, this.y+deltaY));
-        if(this.x !== oldX) { this.update('x');}
-        if(this.y !== oldY) { this.update('y');}
     }
-    update(key) {
-        if(!this.updates) { this.updates = {};}
-        const updates = this.updates;
-        updates[key] = this.key;
-    }
+    takeTurn() {}
 }

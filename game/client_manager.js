@@ -13,6 +13,7 @@ const clientsActive = {};
 export function clientAdd(socket, request) {
     const clientNew = new Client(socket, request);
     clientsActive[clientNew.id] = clientNew;
+    return clientNew;
 }
 export function clientRemove(clientOld) {
     delete clientsActive[clientOld.id];
@@ -57,7 +58,7 @@ class Client {
     }
     
     //-- Keyboard state change handlers --------------
-    checkCommand(command) {
+    commandCheck(command) {
         return !!(this.commandState[command]); // boolean cast
     }
     keyDown(command) {
