@@ -1,6 +1,6 @@
 
 
-//==============================================================================
+//== Client ====================================================================
 
 //-- Dependencies --------------------------------
 import viewLoading from './view/loading.js';
@@ -14,9 +14,15 @@ import networking from './networking/index.js';
 //------------------------------------------------
 export default {
     async configure(configuration) {
+        // Configure and Display Loading View
+        await viewLoading.configure(configuration);
         this.viewSwitch(viewLoading);
+        // Configure all other components and views
         await resourceLibrary.configure(configuration);
         await networking.configure(configuration);
+        await viewLogin.configure(configuration);
+        await viewGameplay.configure(configuration);
+        // Display Login Form
         this.viewSwitch(viewLogin);
     },
     viewSwitch(viewNew) {
@@ -25,5 +31,8 @@ export default {
         }
         this.viewCurrent = viewNew;
         this.viewCurrent.focus();
+    },
+    nameSelect(nameNew) {
+        this.name = nameNew;
     }
 };

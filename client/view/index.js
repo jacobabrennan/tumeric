@@ -10,6 +10,7 @@ const CLASS_ACTIVE = 'active';
 
 //------------------------------------------------
 export default {
+    configure(configuration) {},
     // elementId: ID_VIEW_EXAMPLE,
     blur() {
         const viewElement = document.getElementById(this.elementId);
