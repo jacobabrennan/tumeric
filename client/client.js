@@ -24,6 +24,9 @@ export default {
         await viewGameplay.configure(configuration);
         // Display Login Form
         this.viewSwitch(viewLogin);
+        //
+        const mediaStream = await navigator.mediaDevices.getUserMedia({audio: true});
+        // const trackAudio = mediaStream.getAudioTracks()[0];
     },
     viewSwitch(viewNew) {
         if(this.viewCurrent) {
