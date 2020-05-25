@@ -5,11 +5,13 @@
 //-- Dependencies --------------------------------
 import express from 'express';
 import WS from 'express-ws';
+import { clientAdd } from './game/client_manager.js';
 
 //-- Constants -----------------------------------
 const PORT = 7231;
 const MESSAGE_SERVER_OPEN = `Server Opened on port ${PORT}`;
 const PATH_CLIENT = 'client';
+const URL_WEBSOCKET_MOUNT = '/';
 
 //-- Create and Open Server ----------------------
 let server = express();
@@ -22,9 +24,6 @@ server.listen(PORT, function () {
 server.use(express.static(PATH_CLIENT));
 
 //-- Handle Websocket Traffic --------------------
-server.ws('/', function (ws, req) {
-    console.log(' -- WebSocket: New Connection');
-    // ws.on('message', function (...) {
-    //     ...
-    // });
+server.ws(URL_WEBSOCKET_MOUNT, function (socket, request) {
+    clientAdd(socket, request);
 });

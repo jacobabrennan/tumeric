@@ -3,16 +3,33 @@
 //== Keyboard ==================================================================
 
 //-- Dependencies --------------------------------
+import {
+    ACTION_KEY_DOWN,
+    ACTION_KEY_UP,
+    dataSend,
+} from './network.js';
 
 //-- Constants -----------------------------------
-export const KEY_ARROW_UP = 'ArrowUp';
-export const KEY_ARROW_DOWN = 'ArrowDown';
-export const KEY_ARROW_RIGHT = 'ArrowRight';
-export const KEY_ARROW_LEFT = 'ArrowLeft';
+// note canonical (lowercase) representation
+export const KEY_ARROW_UP = 'arrowup';
+export const KEY_ARROW_DOWN = 'arrowdown';
+export const KEY_ARROW_RIGHT = 'arrowright';
+export const KEY_ARROW_LEFT = 'arrowleft';
 
-//-- Module State --------------------------------
-const keyState = {};
-let keyHandlers = {};
+//-- These should be elsewhere -------------------
+const NORTH = 1;
+const SOUTH = 2;
+const EAST = 4;
+const WEST = 8;
+
+//-- Key Mapping ---------------------------------
+// this should be reversed and placed into user editable preferences
+const keyMap = {
+    [KEY_ARROW_UP]: NORTH,
+    [KEY_ARROW_DOWN]: SOUTH,
+    [KEY_ARROW_RIGHT]: EAST,
+    [KEY_ARROW_LEFT]: WEST,
+};
 
 //-- Setup ---------------------------------------
 export async function setup(container) {
@@ -26,41 +43,16 @@ export async function setup(container) {
     container.addEventListener('keyup'  , handleEventKeyUp  );
 }
 
-//-- Key Management ------------------------------
-export function keyCheck(key) {
-    // enforce canonical key representation
-    key = key.toLowerCase();
-    // check key state
-    if(!keyState[key]){
-        return false;
-    }
-    return true;
-}
-export function registerKeyHandler(key, handler) {
-    // enforce canonical key representation
-    key = key.toLowerCase();
-    // Set handler
-    keyHandlers[key] = handler;
-}
-export function cancelKeyHandler(key) {
-    // enforce canonical key representation
-    key = key.toLowerCase();
-    // Delete handler
-    delete keyHandlers[key];
-}
-export function flushKeyHandlers() {
-    keyHandlers = {};
-}
-
 //-- Keyboard state change handlers --------------
 function handleKeyDown(key) {
-    // Set keyState
-    keyState[key] = true;
-    // trigger key handler
-    const keyHandler = keyHandlers[key]
-    if(!keyHandler) { return;}
-    keyHandler(key);
+    key = key.toLowerCase();
+    const command = keyMap[key];
+    if(!command) { return;}
+    dataSend(ACTION_KEY_DOWN, command);
 }
 function handleKeyUp(key) {
-    delete keyState[key];
+    key = key.toLowerCase();
+    const command = keyMap[key];
+    if(!command) { return;}
+    dataSend(ACTION_KEY_UP, command);
 }
