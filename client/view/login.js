@@ -3,7 +3,7 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-import view, { ID_VIEW_LOGIN } from '../index.js';
+import view, { ID_VIEW_LOGIN } from './index.js';
 
 //------------------------------------------------
 export default Object.assign(Object.create(view), {

@@ -3,9 +3,9 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-import viewLoading from './view/loading/index.js';
-import viewLogin from './view/login/index.js';
-import viewGameplay from './view/gameplay/index.js';
+import viewLoading from './view/loading.js';
+import viewLogin from './view/login.js';
+import viewGameplay from './view/gameplay.js';
 import resourceLibrary from './resource_library/index.js';
 import networking from './networking/index.js';
 
