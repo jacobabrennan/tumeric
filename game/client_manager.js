@@ -19,8 +19,12 @@ export function clientRemove(clientOld) {
     delete clientsActive[clientOld.id];
 }
 
-//-- Client --------------------------------------
+
+//== Client ====================================================================
+
 class Client {
+    
+    //-- Constructor ---------------------------------
     constructor(socket, request) {
         // Initialize object properties
         this.commandState = {};
@@ -30,6 +34,11 @@ class Client {
         const randomInt = Math.floor(Math.random()*10000);
         this.id = `Guest_${randomInt}`
         // Configure network connection
+        this.dataSetup(socket);
+    }
+    
+    //-- Networking ----------------------------------
+    dataSetup(socket) {
         this.socket = socket;
         socket.on(EVENT_DISCONNECT, (eventClose) => {
             clientRemove(this);
