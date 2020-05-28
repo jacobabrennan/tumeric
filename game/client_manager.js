@@ -8,7 +8,7 @@ const EVENT_DISCONNECT = 'close';
 const ACTION_KEY_DOWN = 'keyDown';
 const ACTION_KEY_UP = 'keyUp';
 
-//------------------------------------------------
+//-- Client Management ---------------------------
 const clientsActive = {};
 export function clientAdd(socket, request) {
     const clientNew = new Client(socket, request);
@@ -19,15 +19,17 @@ export function clientRemove(clientOld) {
     delete clientsActive[clientOld.id];
 }
 
-//------------------------------------------------
+//-- Client --------------------------------------
 class Client {
     constructor(socket, request) {
-        //
+        // Initialize object properties
         this.commandState = {};
-        //
+        // Give each client a random id
+            // This can be changed later when the client logs in
+            // (login not yet implemented)
         const randomInt = Math.floor(Math.random()*10000);
         this.id = `Guest_${randomInt}`
-        //
+        // Configure network connection
         this.socket = socket;
         socket.on(EVENT_DISCONNECT, (eventClose) => {
             clientRemove(this);
@@ -40,6 +42,7 @@ class Client {
         });
     }
     dataSend(action, data) {
+        // Send action and associated data to remote client as a string
         const message = {
             action: action,
             data: data,
@@ -47,6 +50,7 @@ class Client {
         this.socket.send(JSON.stringify(message));
     }
     dataReceive(action, data) {
+        // Execute commands received from remote client
         switch(action) {
             case ACTION_KEY_DOWN:
                 this.keyDown(data);
@@ -59,12 +63,15 @@ class Client {
     
     //-- Keyboard state change handlers --------------
     commandCheck(command) {
+        // Return keystate associated with specified command
         return !!(this.commandState[command]); // boolean cast
     }
     keyDown(command) {
+        // Set keystate associated with specified command
         this.commandState[command] = true;
     }
     keyUp(command) {
+        // Clear keystate associated with specified command
         delete this.commandState[command];
     }
 }

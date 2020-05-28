@@ -3,56 +3,39 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-import { Room, rooms, Particle } from './map.js';
+import { roomAdd, roomGetAll } from './map/map.js';
 
 //-- Constants -----------------------------------
+const ROOM_ID_TEST = 'lobby';
 const GAME_ITERATION_DELAY = 1000/30;
-const NORTH = 1;
-const SOUTH = 2;
-const EAST = 4;
-const WEST = 8;
+
+//-- Module State --------------------------------
+roomAdd(ROOM_ID_TEST);
+let gameActive = false;
 
 //------------------------------------------------
-let lobby  = new Room();
-let gameActive = false;
-function gameStart() {
+export function gameStart() {
+    // If the game is already active, stop
     if(gameActive) { return;}
     gameActive = true;
+    // Start main game loop
     try {
         gameLoopIterate();
     }
+    // Log errors to the console
     catch(error) {
-        console.log(error)
+        console.log(error);
     }
 }
-export function gameLoopIterate() {
+
+//------------------------------------------------
+function gameLoopIterate() {
+    // Direct all rooms to iterate, directing contained particles to take their turns
+    const rooms = roomGetAll();
     for(const roomId in rooms) {
         const room = rooms[roomId];
         room.iterate();
     }
+    // Continue main game loop after a delay
     setTimeout(gameLoopIterate, GAME_ITERATION_DELAY);
-}
-export function playerAdd(client) {
-    let player = new Player();
-    player.clientAttach(client);
-    player.place(lobby.id, 0, 0);
-    gameStart();
-    return player;
-}
-
-//------------------------------------------------
-class Player extends Particle {
-    clientAttach(clientNew) {
-        this.client = clientNew;
-    }
-    takeTurn() {
-        let deltaX = 0;
-        let deltaY = 0;
-        if(this.client.commandCheck(NORTH)) { deltaY++;};
-        if(this.client.commandCheck(SOUTH)) { deltaY--;};
-        if(this.client.commandCheck(EAST)) { deltaX++;};
-        if(this.client.commandCheck(WEST)) { deltaX--;};
-        if(!(deltaX || deltaY)) { return;}
-        this.translate(deltaX, deltaY);
-    }
 }
