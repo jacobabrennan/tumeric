@@ -11,8 +11,23 @@ export default class Room {
         this.particles = [];
     }
     iterate() {
+        // Direct each particle in room to take its turn
         for(const particle of this.particles) {
             particle.takeTurn();
         }
+    }
+    package() {
+        // Include id and basic metrics
+        const updates = {
+            id: this.id,
+            width: this.width,
+            height: this.height,
+        };
+        // Package each contained particle
+        updates.particles = this.particles.map(function (particle) {
+            return particle.package();
+        });
+        // Return update package
+        return updates;
     }
 }

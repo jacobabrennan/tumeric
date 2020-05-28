@@ -2,6 +2,9 @@
 
 //==============================================================================
 
+//-- Dependencies --------------------------------
+import gameplay from "../view/gameplay/index.js";
+
 //-- Constants -----------------------------------
 const ADDRESS_CONNECTION = 'ws://localhost:7231';
 
@@ -15,5 +18,10 @@ export default {
     },
     receive(message) {
         message = JSON.parse(message);
+        switch(message.action) {
+            case ACTION_UPDATE:
+                gameplay.update(message.data);
+                break;
+        }
     }
 }

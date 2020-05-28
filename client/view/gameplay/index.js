@@ -15,12 +15,22 @@ const CANVAS_HEIGHT = Math.floor(CANVAS_WIDTH * (9/16));
 export default Object.assign(Object.create(view), {
     elementId: ID_VIEW_GAMEPLAY,
     async configure(configuration) {
+        //
+        await keyboard.setup(document.body);
+        //
         const container = document.getElementById(this.elementId);
         const canvas = document.createElement(TAG_CANVAS);
         canvas.width = CANVAS_WIDTH;
         canvas.height = CANVAS_HEIGHT;
         canvas.style.background = 'blue'
         container.appendChild(canvas);
-        await keyboard.setup(document.body);
-    }
+        //
+        this.context = canvas.getContext('2d');
+    },
+    update(roomData) {
+        //
+        if(!this.context) { return;}
+        //
+        console.log(roomData)
+    },
 });

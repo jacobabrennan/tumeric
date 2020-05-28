@@ -10,7 +10,7 @@ const rooms = {};
 
 //------------------------------------------------
 export function roomGetAll() {
-    return rooms.slice();
+    return Object.assign({}, rooms);
 }
 export function roomGetById(roomId) {
     return rooms[roomId];

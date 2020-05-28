@@ -6,7 +6,7 @@
 import express from 'express';
 import WS from 'express-ws';
 import { clientAdd } from './game/client_manager.js';
-import { playerAdd } from './game/index.js';
+import { playerAdd } from './game/player_manager.js';
 
 //-- Constants -----------------------------------
 const PORT = 7231;

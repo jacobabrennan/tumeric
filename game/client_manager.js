@@ -1,15 +1,19 @@
 
 
-//==============================================================================
+//== Client Management =========================================================
 
 //-- Constants -----------------------------------
 const EVENT_MESSAGE = 'message';
 const EVENT_DISCONNECT = 'close';
 const ACTION_KEY_DOWN = 'keyDown';
 const ACTION_KEY_UP = 'keyUp';
+const ACTION_UPDATE = 'update';
 
 //-- Client Management ---------------------------
 const clientsActive = {};
+export function clientGetAll() {
+    return Object.assign({}, clientsActive);
+}
 export function clientAdd(socket, request) {
     const clientNew = new Client(socket, request);
     clientsActive[clientNew.id] = clientNew;
@@ -23,7 +27,7 @@ export function clientRemove(clientOld) {
 //== Client ====================================================================
 
 class Client {
-    
+
     //-- Constructor ---------------------------------
     constructor(socket, request) {
         // Initialize object properties
@@ -82,5 +86,10 @@ class Client {
     keyUp(command) {
         // Clear keystate associated with specified command
         delete this.commandState[command];
+    }
+
+    //-- Game State Handling -------------------------
+    update(roomData) {
+        this.dataSend(ACTION_UPDATE, roomData);
     }
 }

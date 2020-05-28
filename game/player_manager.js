@@ -3,8 +3,8 @@
 //== Player Management =========================================================
 
 //-- Dependencies --------------------------------
-import gameStart from './index.js';
-import { Particle } from './map/particle.js';
+import { gameStart, ROOM_ID_TEST } from './index.js';
+import Particle from './map/particle.js';
 
 //-- Constants -----------------------------------
 // These should be defined elsewhere
@@ -15,11 +15,14 @@ const WEST = 8;
 
 //-- Player Management ---------------------------
 export function playerAdd(client) {
+    try {
     let player = new Player();
     player.clientAttach(client);
     player.place(ROOM_ID_TEST, 0, 0);
     gameStart();
     return player;
+    }
+    catch(e){console.log(e)}
 }
 export function playerRemove(player) {
     player.clientDetach();

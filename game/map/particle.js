@@ -8,7 +8,7 @@ import { roomGetById } from './map.js';
 //-- Internal State ------------------------------
 let idCount = 0;
 
-//-- Module Class --------------------------------
+//-- Definition and Constructor ------------------
 export default class Particle {
     constructor() {
         this.id = idCount;
@@ -17,6 +17,20 @@ export default class Particle {
         this.x = NaN;
         this.y = NaN;
     }
+    
+    //-- Networking ----------------------------------
+    package() {
+        return {
+            id: this.id,
+            x: this.x,
+            y: this.y,
+        };
+    }
+    
+    //-- Intelligence --------------------------------
+    takeTurn() {}
+
+    //-- Movement ------------------------------------
     place(roomId, posXNew, posYNew) {
         // If new such new room exists, remove particle from map and return success
         const roomPlacement = roomGetById(roomId);
@@ -81,5 +95,4 @@ export default class Particle {
         // Otherwise, return success
         return true;
     }
-    takeTurn() {}
 }
