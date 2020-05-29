@@ -13,23 +13,49 @@ const SOUTH = 2;
 const EAST = 4;
 const WEST = 8;
 
+//-- Internal State ------------------------------
+const players = {};
+
 //-- Player Management ---------------------------
-export function playerAdd(client) {
-    try {
-    let player = new Player();
-    player.clientAttach(client);
-    player.place(ROOM_ID_TEST, 0, 0);
-    gameStart();
-    return player;
-    }
-    catch(e){console.log(e)}
+export function getPlayerAll() {
+    return Object.assign({}, players);
 }
-export function playerRemove(player) {
+export function getPlayer(playerId) {
+    return players[playerId];
+}
+export function playerAdd(playerId, client) {
+    let newPlayer = players[playerId];
+    // if(newPlayer.client) {
+    //     oh well
+    // }
+    if(!newPlayer) {
+        newPlayer = new Player();
+    }
+    newPlayer.clientAttach(client);
+    newPlayer.place(ROOM_ID_TEST, 0, 0);
+    gameStart();
+    return newPlayer;
+}
+export function playerRemove(playerId) {
+    const player = getPlayer(playerId);
     player.clientDetach();
+    delete players[playerId];
 }
 
 //-- Player --------------------------------------
 class Player extends Particle {
+    constructor() {
+        super();
+        // Potential for conflict with Particle.id; id already managed by the functions above
+        // this.playerId = playerId;
+        const colors = ['black', 'white', 'yellow', 'lightblue'];
+        this.color = colors[Math.floor(Math.random() * colors.length)]
+    }
+    package() {
+        const update = super.package();
+        update.color = this.color;
+        return update;
+    }
     clientAttach(clientNew) {
         this.client = clientNew;
         clientNew.player = this;

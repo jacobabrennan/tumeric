@@ -7,11 +7,17 @@ import gameplay from "../view/gameplay/index.js";
 
 //-- Constants -----------------------------------
 const ADDRESS_CONNECTION = 'ws://localhost:7231';
+// should be defined centrally
+const ACTION_UPDATE = 'update';
+const EVENT_MESSAGE = 'message';
 
 //------------------------------------------------
 export default {
     async configure(configuration) {
         this.socket = new WebSocket(ADDRESS_CONNECTION);
+        this.socket.addEventListener(EVENT_MESSAGE, (eventMessage) => {
+            this.receive(eventMessage.data);
+        });
     },
     send(message) {
         this.socket.send(JSON.stringify(message));

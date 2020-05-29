@@ -6,7 +6,6 @@
 import express from 'express';
 import WS from 'express-ws';
 import { clientAdd } from './game/client_manager.js';
-import { playerAdd } from './game/player_manager.js';
 
 //-- Constants -----------------------------------
 const PORT = 7231;
@@ -26,6 +25,5 @@ server.use(express.static(PATH_CLIENT));
 
 //-- Handle Websocket Traffic --------------------
 server.ws(URL_WEBSOCKET_MOUNT, function (socket, request) {
-    const clientNew = clientAdd(socket, request);
-    playerAdd(clientNew);
+    clientAdd(socket, request);
 });

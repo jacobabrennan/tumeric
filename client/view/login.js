@@ -22,7 +22,7 @@ export default Object.assign(Object.create(view), {
             eventSubmit.preventDefault();
             const nameSelected = form.elements[INPUT_NAME].value;
             client.nameSelect(nameSelected);
-            client.viewSwitch(viewGameplay)
+            client.viewSwitch(viewGameplay);
         }
     },
     focus() {

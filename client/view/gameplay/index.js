@@ -31,6 +31,10 @@ export default Object.assign(Object.create(view), {
         //
         if(!this.context) { return;}
         //
-        console.log(roomData)
+        this.context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        for(const particle of roomData.particles) {
+            this.context.fillStyle = particle.color;
+            this.context.fillRect(particle.x, particle.y, 16, 16);
+        }
     },
 });

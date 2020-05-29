@@ -2,9 +2,13 @@
 
 //== Client Management =========================================================
 
+//-- Dependencies --------------------------------
+import { playerAdd } from './player_manager.js';
+
 //-- Constants -----------------------------------
 const EVENT_MESSAGE = 'message';
 const EVENT_DISCONNECT = 'close';
+const ACTION_LOG_IN = 'logIn';
 const ACTION_KEY_DOWN = 'keyDown';
 const ACTION_KEY_UP = 'keyUp';
 const ACTION_UPDATE = 'update';
@@ -65,6 +69,9 @@ class Client {
     dataReceive(action, data) {
         // Execute commands received from remote client
         switch(action) {
+            case ACTION_LOG_IN:
+                this.logIn(data);
+                break;
             case ACTION_KEY_DOWN:
                 this.keyDown(data);
                 break;
@@ -72,6 +79,11 @@ class Client {
                 this.keyUp(data);
                 break;
         }
+    }
+    
+    //-- Player Connection Handling ------------------
+    logIn(data) {
+        playerAdd(data, this);
     }
     
     //-- Keyboard state change handlers --------------

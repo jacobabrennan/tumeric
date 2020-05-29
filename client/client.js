@@ -10,6 +10,8 @@ import resourceLibrary from './resource_library/index.js';
 import networking from './networking/index.js';
 
 //-- Constants -----------------------------------
+// should be defined elsewhere
+const ACTION_LOG_IN = 'logIn';
 
 //------------------------------------------------
 export default {
@@ -34,5 +36,9 @@ export default {
     },
     nameSelect(nameNew) {
         this.name = nameNew;
+        networking.send({
+            action: ACTION_LOG_IN,
+            data: nameNew,
+        });
     }
 };

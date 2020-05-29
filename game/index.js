@@ -10,11 +10,11 @@ import { clientGetAll } from './client_manager.js';
 export const ROOM_ID_TEST = 'lobby';
 const GAME_ITERATION_DELAY = 1000/30;
 
-//-- Module State --------------------------------
+//-- Internal State ------------------------------
 roomAdd(ROOM_ID_TEST);
 let gameActive = false;
 
-//------------------------------------------------
+//-- Main Game Loop ------------------------------
 export function gameStart() {
     // If the game is already active, stop
     if(gameActive) { return;}
@@ -28,8 +28,6 @@ export function gameStart() {
         console.log(error);
     }
 }
-
-//------------------------------------------------
 function gameLoopIterate() {
     // Direct all rooms to iterate, directing contained particles to take their turns
     let rooms = roomGetAll(); // Hash: roomId maps to room object
