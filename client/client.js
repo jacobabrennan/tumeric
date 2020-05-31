@@ -40,5 +40,5 @@ export default {
             action: ACTION_LOG_IN,
             data: nameNew,
         });
-    }
+    },
 };

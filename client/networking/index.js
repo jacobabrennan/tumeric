@@ -4,6 +4,7 @@
 
 //-- Dependencies --------------------------------
 import gameplay from "../view/gameplay/index.js";
+import { ACTION_AUDIO_BUFFER } from "../view/gameplay/network.js";
 
 //-- Constants -----------------------------------
 const ADDRESS_CONNECTION = 'ws://localhost:7231';
@@ -27,6 +28,9 @@ export default {
         switch(message.action) {
             case ACTION_UPDATE:
                 gameplay.update(message.data);
+                break;
+            case ACTION_AUDIO_BUFFER:
+                gameplay.audioUpdate(message.data)
                 break;
         }
     }

@@ -12,6 +12,7 @@ const ACTION_LOG_IN = 'logIn';
 const ACTION_KEY_DOWN = 'keyDown';
 const ACTION_KEY_UP = 'keyUp';
 const ACTION_UPDATE = 'update';
+const ACTION_AUDIO_BUFFER = 'audioBuffer';
 
 //-- Client Management ---------------------------
 const clientsActive = {};
@@ -50,7 +51,7 @@ class Client {
         this.socket = socket;
         socket.on(EVENT_DISCONNECT, (eventClose) => {
             clientRemove(this);
-        })
+        });
         socket.on(EVENT_MESSAGE, (eventMessage) => {
             eventMessage = JSON.parse(eventMessage);
             if(eventMessage.action) {
@@ -77,6 +78,9 @@ class Client {
                 break;
             case ACTION_KEY_UP:
                 this.keyUp(data);
+                break;
+            case ACTION_AUDIO_BUFFER:
+                this.dataSend(ACTION_AUDIO_BUFFER, data);
                 break;
         }
     }
